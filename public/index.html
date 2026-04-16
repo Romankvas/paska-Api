@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paska Store</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+    <h1>Магазин Пасок </h1>
+    <div id="cart-icon">🛒 Кошик (<span id="cart-count">0</span>)</div>
+</header>
+
+<main>
+    <div class="pasky-container"></div>
+</main>
+
+<div id="paska-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<aside id="cart-sidebar">
+    <div class="cart-header">
+        <h2>Ваше замовлення</h2>
+        <span id="close-cart">&times;</span> </div>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+        <p>Сума: <span id="total-price">0</span> грн</p>
+        <input type="text" id="user-phone" placeholder="Ваш номер телефону">
+        <button id="checkout-btn">Замовити</button>
+    </div>
+</aside>
+    <script src="main.js"></script>
+</body>
+</html>
