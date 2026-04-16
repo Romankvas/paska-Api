@@ -1,24 +1,42 @@
+require('dotenv').config(); // Завантажуємо змінні з .env
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path'); // Додай це
 const app = express();
-const port = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
 
-app.use(express.static('public')); 
+mongoose.connect("mongodb+srv://romankvas27b_db_user:WG6hmQdzC35jmyV2@cluster0.9xwq8ea.mongodb.net/?appName=Cluster0")
+    .then(() => console.log('✅ Успішно підключено до MongoDB Atlas!'))
+    .catch(err => console.error('❌ Помилка підключення:', err));
 
-let orders = [];
-
-app.post('/order', (req, res) => {
-    const newOrder = req.body;
-    orders.push(newOrder);
-    console.log("Нове замовлення:", newOrder);
-    res.status(200).send({ message: "Order saved!" });
+const orderSchema = new mongoose.Schema({
+    phone: String,
+    items: Array,
+    total: Number,
+    date: { type: Date, default: Date.now }
 });
 
-app.listen(port, () => {
-    console.log(`Сервер працює! Відкрий: http://localhost:${port}`);
+const Order = mongoose.model('Order', orderSchema);
+
+// 3. ОНОВЛЕНИЙ РОУТ ДЛЯ ЗАМОВЛЕННЯ
+app.post('/order', async (req, res) => {
+    try {
+        const newOrder = new Order({
+            phone: req.body.phone,
+            items: req.body.items,
+            total: req.body.total
+        });
+
+        await newOrder.save(); 
+        console.log("Замовлення збережено в БД:", newOrder);
+        res.status(200).send({ message: "Замовлення збережено!" });
+    } catch (error) {
+        res.status(500).send({ message: "Помилка сервера", error });
+    }
 });
+
+app.listen(3000, () => console.log('Сервер на http://localhost:3000'));

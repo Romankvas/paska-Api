@@ -49,7 +49,32 @@ function addToCart(name, price) {
     $("#paska-modal").hide(); // Закриваємо попап після покупки
     $("#cart-sidebar").addClass("active");
 }
+// Замість старого $("#checkout-btn").click(...) використовуй це:
+$(document).on("click", "#checkout-btn", function() {
+    console.log("Кнопка натиснута!"); // Перевір, чи з'явиться цей напис в консолі
+    
+    const phone = $("#user-phone").val();
+    if(!phone) {
+        alert("Введіть телефон!");
+        return;
+    }
 
+    // Твій запит
+    axios.post("http://localhost:3000/order", {
+        phone: phone,
+        items: cart,
+        total: $("#total-price").text()
+    })
+    .then(res => {
+        alert("Замовлення прийнято!");
+        cart = [];
+        updateCartUI();
+    })
+    .catch(err => {
+        console.error("Помилка відправки:", err);
+        alert("Помилка сервера. Перевір консоль!");
+    });
+});
 // Видалення з кошика
 function removeFromCart(index) {
     cart.splice(index, 1);
