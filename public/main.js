@@ -1,15 +1,14 @@
-// main.js
-let cart = [];
-let allPasky = []; // Зберігаємо всі паски тут
 
-// 1. Отримуємо дані
+let cart = [];
+let allPasky = []; 
+
 axios.get("https://easter-cake.onrender.com/api/pasky")
     .then(res => {
         allPasky = res.data;
         renderPasky(allPasky);
     });
 
-// 2. Рендеримо картки (Тільки фото і назва)
+
 function renderPasky(data) {
     let html = data.map((el, index) => `
         <div class="card" onclick="openModal(${index})">
@@ -24,7 +23,7 @@ function renderPasky(data) {
     $(".pasky-container").html(html);
 }
 
-// 3. Логіка Попапу
+
 function openModal(index) {
     const item = allPasky[index];
     const modalHtml = `
@@ -38,18 +37,17 @@ function openModal(index) {
     $("#paska-modal").css("display", "flex");
 }
 
-// Закриття попапу
 $(".close-modal").click(() => $("#paska-modal").hide());
 $(window).click((e) => { if(e.target.id == "paska-modal") $("#paska-modal").hide(); });
 
-// 4. Логіка Кошика
+
 function addToCart(name, price) {
     cart.push({ name, price });
     updateCartUI();
-    $("#paska-modal").hide(); // Закриваємо попап після покупки
+    $("#paska-modal").hide(); 
     $("#cart-sidebar").addClass("active");
 }
-// Замість старого $("#checkout-btn").click(...) використовуй це:
+
 $(document).on("click", "#checkout-btn", function() {
     console.log("Кнопка натиснута!"); // Перевір, чи з'явиться цей напис в консолі
     
@@ -75,7 +73,7 @@ $(document).on("click", "#checkout-btn", function() {
         alert("Помилка сервера. Перевір консоль!");
     });
 });
-// Видалення з кошика
+
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
@@ -95,6 +93,6 @@ function updateCartUI() {
     $("#total-price").text(total);
 }
 
-// Керування кошиком
+
 $("#cart-icon").click(() => $("#cart-sidebar").addClass("active"));
 $("#close-cart").click(() => $("#cart-sidebar").removeClass("active"));
