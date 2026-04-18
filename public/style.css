@@ -1,4 +1,3 @@
-/* style.css */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f9f9;
@@ -6,15 +5,12 @@ body {
 }
 
 header {
-    background: #333;
+    background: #6abfc2;
     color: white;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .pasky-container {
@@ -33,15 +29,18 @@ header {
     border: #333 solid 1px;
 }
 
-.card:hover { transform: translateY(-10px); }
+.card:hover { 
+    transform: translateY(-10px);
+ }
 
 .card img {
     width: 100%;
     height: 250px;
-    object-fit: cover;
 }
 
-.card-content { padding: 20px; }
+.card-content { 
+    padding: 20px; 
+}
 
 .btn {
     width: 100%;
@@ -54,7 +53,7 @@ header {
     font-weight: bold;
 }
 
-/* Кошик (Sidebar) */
+
 #cart-sidebar {
     position: fixed;
     right: -400px;
@@ -65,14 +64,12 @@ header {
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     transition: 0.4s;
     padding: 20px;
-    z-index: 1000;
 }
 
-#cart-sidebar.active { right: 0; }
-/* style.css */
-/* ... старі стилі ... */
+#cart-sidebar.active { 
+    right: 0;
+ }
 
-/* Кнопки закриття */
 .close-modal, #close-cart {
     cursor: pointer;
     font-size: 30px;
@@ -80,18 +77,21 @@ header {
     color: #888;
 }
 
-#close-cart { font-size: 40px; margin-top: -10px; }
+#close-cart {
+     font-size: 40px; margin-top: -10px; 
+    }
 
-/* Модальне вікно */
 .modal {
     display: none; 
     position: fixed;
     z-index: 2000;
     left: 0; top: 0;
-    width: 100%; height: 100%;
+    width: 100%; 
+    height: 100%;
     background-color: rgba(0,0,0,0.7);
     align-items: center;
     justify-content: center;
+    
 }
 
 .modal-content {
@@ -103,9 +103,10 @@ header {
     text-align: center;
 }
 
-.modal img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+.modal img { 
+    width: 100%; border-radius: 10px; margin-bottom: 15px;
+ }
 
-/* Стиль для кнопки видалення в кошику */
 .remove-btn {
     background: #e74c3c;
     color: white;
@@ -114,4 +115,14 @@ header {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+#cart-icon {
+    cursor: pointer;
+    border: #333 solid 1px;
+    border-radius: 1px;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: aquamarine;
 }
