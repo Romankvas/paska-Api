@@ -11,11 +11,25 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<header>
-    <h1>Магазин Пасок </h1>
-    <div id="cart-icon">🛒 Кошик (<span id="cart-count">0</span>)</div>
-</header>
+<header class="header">
+    <div class="logo">🥐 Paska Store</div>
 
+    <div class="header-actions">
+        <div id="cart-icon">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </div>
+</header>
+<div class="filters">
+    <input type="text" id="search" placeholder="🔍 Пошук паски...">
+
+    <select id="category">
+        <option value="all">Всі</option>
+        <option value="classic">Класичні</option>
+        <option value="chocolate">Шоколадні</option>
+        <option value="premium">Преміум</option>
+    </select>
+</div>
 <main>
     <div class="pasky-container"></div>
 </main>
@@ -29,12 +43,19 @@
 
 <aside id="cart-sidebar">
     <div class="cart-header">
-        <h2>Ваше замовлення</h2>
-        <span id="close-cart">&times;</span> </div>
+        <h2>🛒 Кошик</h2>
+        <span id="close-cart">&times;</span>
+    </div>
+
     <div id="cart-items"></div>
+
     <div class="cart-footer">
-        <p>Сума: <span id="total-price">0</span> грн</p>
-        <input type="text" id="user-phone" placeholder="Ваш номер телефону">
+        <div class="cart-total">
+            Сума: <span id="total-price">0</span> грн
+        </div>
+
+        <input type="text" id="user-phone" placeholder="📱 Номер телефону">
+
         <button id="checkout-btn">Замовити</button>
     </div>
 </aside>

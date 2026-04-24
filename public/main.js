@@ -48,6 +48,14 @@ function addToCart(name, price) {
     $("#cart-sidebar").addClass("active");
 }
 
+function showToast(text) {
+    const toast = $(`<div class="toast">${text}</div>`);
+    $("body").append(toast);
+
+    setTimeout(() => toast.addClass("show"), 10);
+    setTimeout(() => toast.remove(), 2000);
+}
+
 $(document).on("click", "#checkout-btn", function() {
     console.log("Кнопка натиснута!"); // Перевір, чи з'явиться цей напис в консолі
     
@@ -78,17 +86,51 @@ function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
 }
+$("#search").on("input", filterPasky);
+$("#category").on("change", filterPasky);
 
+function filterPasky() {
+    let search = $("#search").val().toLowerCase();
+    let category = $("#category").val();
+
+    let filtered = allPasky.filter(el => {
+        let matchName = el.name.toLowerCase().includes(search);
+
+        // тимчасова логіка категорій
+        let matchCategory = true;
+
+        if(category === "chocolate"){
+            matchCategory = el.name.toLowerCase().includes("шоколад");
+        }
+        if(category === "classic"){
+            matchCategory = el.price < 500;
+        }
+        if(category === "premium"){
+            matchCategory = el.price > 800;
+        }
+
+        return matchName && matchCategory;
+    });
+
+    renderPasky(filtered);
+}
 function updateCartUI() {
     $("#cart-count").text(cart.length);
-    let itemsHtml = cart.map((item, index) => `
-        <div class="cart-item">
-            <span>${item.name} - ${item.price} грн</span>
-            <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
-        </div>
-    `).join('');
-    
-    $("#cart-items").html(itemsHtml);
+
+    if(cart.length === 0){
+        $("#cart-items").html("<p>Порожньо 🧺</p>");
+    } else {
+        let itemsHtml = cart.map((item, index) => `
+            <div class="cart-item">
+                <div>${item.name}</div>
+                <div><b>${item.price} грн</b></div>
+                <button onclick="removeFromCart(${index})">❌</button>
+            </div>
+        `).join('');
+
+        $("#cart-items").html(itemsHtml);
+    }
+
     let total = cart.reduce((sum, item) => sum + item.price, 0);
     $("#total-price").text(total);
 }
